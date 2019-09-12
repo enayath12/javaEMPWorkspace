@@ -41,7 +41,7 @@ public class Sql_Insert_Statement_Five_Minute extends HttpServlet {
 
 		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA CSV semicolon\\");
 
-		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TKD A-Z TXT Five MIN\\");
+		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT Five Minute\\");
 		
 		System.out.println("   Sql_Insert_Statement_Five_minute  ");
 		

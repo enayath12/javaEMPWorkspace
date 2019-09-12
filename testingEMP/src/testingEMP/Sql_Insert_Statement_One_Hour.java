@@ -41,7 +41,7 @@ public class Sql_Insert_Statement_One_Hour extends HttpServlet {
 
 		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD HOUR-DATA CSV Semicolon\\");
 
-		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TKD A-Z TXT One Hour\\");
+		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT One Hour\\");
 		
 		System.out.println("   Sql_Insert_Statement_One_Hour  ");
 		

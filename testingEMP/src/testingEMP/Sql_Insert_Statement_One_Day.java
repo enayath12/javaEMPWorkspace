@@ -41,7 +41,7 @@ public class Sql_Insert_Statement_One_Day extends HttpServlet {
 
 		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD A-Z CSV Semicolon\\");
 
-		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TKD A-Z TXT One day\\");
+		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT One day\\");
 		
 		
 		System.out.println(" Sql_Insert_Statement_One_Day");

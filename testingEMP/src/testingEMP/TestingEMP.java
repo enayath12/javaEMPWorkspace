@@ -31,7 +31,7 @@ public class TestingEMP extends HttpServlet {
 	 public static void main(String[] args) throws FileNotFoundException, IOException {
 		 
 		// fiveminuteStockName();
-		 String filePath = "D:\\Strategy testing environment\\TKD MASTER FILE FIVE MIN.txt";
+		String filePath = "D:\\Strategy testing environment\\TKD MASTER FILE FIVE MIN NEW.txt";
 		    
 		    HashMap<String, String> mapFiveMin = new HashMap<String, String>();
 		   
@@ -44,7 +44,7 @@ public class TestingEMP extends HttpServlet {
 		        {
 		            String key = parts[0].trim();
 		            String value = parts[1].trim();
-		            mapFiveMin.put(key, value);
+		            mapFiveMin.put(value,key);
 		        } else {
 		            System.out.println("ignoring line: " + line);
 		        }
@@ -52,10 +52,10 @@ public class TestingEMP extends HttpServlet {
 
 		    for (String key : mapFiveMin.keySet())
 		    {
-		        //System.out.println(key + ":" + map.get(key));
+		      //  System.out.println(key + ":" + key);
 		    	String upperCasePhrase =key;
 		    	String test="\"" + upperCasePhrase + "\"";
-		        System.out.println("map.put("+mapFiveMin.get(key)+", "+test+");");
+		       System.out.println("map.put("+test+","+mapFiveMin.get(key)+");");
 		    }
 		    reader.close();
 		    
@@ -2023,91 +2023,3 @@ private static Map<Integer, String> sortByValue(HashMap<Integer, String> map) {
     return sortedMap;
 }
 }
-
-
-
-
-
-/*
-Sql_Insert_Statement_Five_minute  
-Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
-Arvind_Mills_F1                Arvind_Mills
-WELCORP                WELCORP
-DELTACORP_F1                DELTACORP
-COLGATE                COLGATE
-AMARAJABAT_F1                AMARAJABAT
-Dhampur_Sugar_F1                Dhampur_Sugar
-Herohonda                Herohonda
-Herohonda_F1                Herohonda
-Tata_Chem_F1                Tata_Chem
-Sun_Pharma_F1                Sun_Pharma
-REC_LTD_F1                REC_LTD
-BAJAJ_AUTO_LTD_F1                BAJAJ_AUTO_LTD
-ABAN                ABAN
-DABUR                DABUR
-BAJFINANCE_F1                BAJFINANCE
-BEL_F1                BEL
-Jindal_Steel_F1                Jindal_Steel
-HINDUSTAN_UNILEV                HINDUSTAN_UNILEV
-Dr_Reddy_F1                Dr_Reddy
-Divis_Lab_F1                Divis_Lab
-Dabur_F1                Dabur
-Ashok_Ley_F1                Ashok_Ley
-Bharat_Forg_F1                Bharat_Forg
-Colgate_F1                Colgate
-BIOCON_LIMITED_F1                BIOCON_LIMITED
-TECHMAHINDRA_LTD                TECHMAHINDRA_LTD
-Bank_Nifty                Bank_Nifty
-JUBLFOOD                JUBLFOOD
-FINANTECH                FINANTECH
-BHARATFORG_F1                BHARATFORG
-KPIT                KPIT
-BRITANNIA_F1                BRITANNIA
-CASTROLIND_F1                CASTROLIND
-DHFL_F1                DHFL
-ENGINERSIN_F1                ENGINERSIN
-IBULHSGFIN_F1                IBULHSGFIN
-Mc_Dowell                Mc_Dowell
-esa_Goa                esa_Goa
-Eveready                Eveready
-Mid_Day_Multimed                Mid_Day_Multimed
-Nagarjuna_Const                Nagarjuna_Const
-Larsen_Toubra                Larsen_Toubra
-India_Cem                India_Cem
-Flex_Ind                Flex_Ind
-Global_Tele                Global_Tele
-UNIPHOS_F1                UNIPHOS
-YESBANK_LTD_F1                YESBANK_LTD
-ADANI_ENTERPRISE                ADANI_ENTERPRISE
-ADANIPOWER_LTD_F1                ADANIPOWER_LTD
-HEXAWARE_LTD_F1                HEXAWARE_LTD
-MUNDRA_PORT_SE                MUNDRA_PORT_SE
-SHRIRAM_TRANSPOR                SHRIRAM_TRANSPOR
-EXIDE_INDUSTRIES                EXIDE_INDUSTRIES
-RECLTD                RECLTD
-INDIANB                INDIANB
-M_MFIN_F1                M_MFIN
-UBL_F1                UBL
-BIOCON                BIOCON
-UPL                UPL
-ADANIENT                ADANIENT
-ADANIPORTS_F1                ADANIPORTS
-TIMETECHNO_F1                TIMETECHNO
-TIMKEN                TIMKEN
-BIRLACORPN_F1                BIRLACORPN
-EICHERMOT_F1                EICHERMOT
-PAGEIND_F1                PAGEIND
-PIDILITIND_F1                PIDILITIND
-SKSMICRO_F1                SKSMICRO
-STAR_F1                STAR
-TATAELXSI_F1                TATAELXSI
-UNITED_SPIRITS_F1                UNITED_SPIRITS
-JUBLFOOD_LTD_F1                JUBLFOOD_LTD
-BAJAJ_AUTO                BAJAJ_AUTO
-HITACHIHOM                HITACHIHOM
-LINDEINDIA                LINDEINDIA
-COALINDIA_F1                COALINDIA
-APOLLOHOSP_F1                APOLLOHOSP
-GLENMARK_F1                GLENMARK
-JUSTDIAL_F1                JUSTDIAL
-L_TFH_F1                L_TFH*/

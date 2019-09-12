@@ -31,7 +31,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 @WebServlet("/GenerateInsertStatement")
 public class GenerateInsertStatement_One_Day extends HttpServlet {
 
-	public static File sqlDumpFolder = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TKD A-Z SQL one Day\\");
+	public static File sqlDumpFolder = new File("D:\\Strategy testing environment\\TKD Extracted Files\\SQL one Day\\");
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
