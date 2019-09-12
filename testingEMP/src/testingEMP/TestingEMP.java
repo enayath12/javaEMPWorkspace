@@ -31,7 +31,7 @@ public class TestingEMP extends HttpServlet {
 	 public static void main(String[] args) throws FileNotFoundException, IOException {
 		 
 		// fiveminuteStockName();
-		String filePath = "D:\\Strategy testing environment\\TKD MASTER FILE FIVE MIN NEW.txt";
+/*		String filePath = "D:\\Strategy testing environment\\TKD MASTER FILE FIVE MIN NEW.txt";
 		    
 		    HashMap<String, String> mapFiveMin = new HashMap<String, String>();
 		   
@@ -57,9 +57,9 @@ public class TestingEMP extends HttpServlet {
 		    	String test="\"" + upperCasePhrase + "\"";
 		       System.out.println("map.put("+test+","+mapFiveMin.get(key)+");");
 		    }
-		    reader.close();
+		    reader.close();*/
 		    
-		    /*File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\MASTER");
+		  File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\XMASTER");
           byte[] data = new byte[(int) f1.length()];
           new FileInputStream(f1).read(data);
 
@@ -67,7 +67,7 @@ public class TestingEMP extends HttpServlet {
               System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
                       + new String(data, ((i + 1) * 53) + 36, 14).trim());
      
-          }*/
+          }
 	}
 	 
     public static void fiveminuteStockName(){
@@ -2023,3 +2023,78 @@ private static Map<Integer, String> sortByValue(HashMap<Integer, String> map) {
     return sortedMap;
 }
 }
+
+
+/*
+
+
+9181
+9854
+9855
+9182
+9183
+9857
+9184
+9185
+9192
+9193
+9194
+9159
+9160
+9852
+9161
+9162
+9163
+9164
+9165
+9166
+9167
+9168
+9169
+9170
+9171
+9172
+9173
+9175
+9176
+9177
+9178
+9179
+9180
+9186
+9187
+9188
+9189
+9190
+9191
+9860
+9861
+9862
+9863
+9864
+9865
+9866
+9867
+9868
+9869
+9870
+9871
+9872
+9873
+9874
+9875
+9876
+9877
+9878
+9879
+9880
+9881
+9882
+9883
+9884
+9885
+9886
+9887
+9888
+9889
+9047*/
