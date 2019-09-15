@@ -59,13 +59,15 @@ public class TestingEMP extends HttpServlet {
 		    }
 		    reader.close();*/
 		    
-		  File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\XMASTER");
+		  File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\MASTER");
+		  File f123 = new File("D:\\Strategy testing environment\\TKD\\NSE\\NIFTY\\MASTER");
           byte[] data = new byte[(int) f1.length()];
           new FileInputStream(f1).read(data);
 
           for (int i = 0; i < ((data.length / 53) - 1); ++i){
-              System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
-                      + new String(data, ((i + 1) * 53) + 36, 14).trim());
+        	  System.out.println(new String(data));
+              //System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
+               //       + new String(data, ((i + 1) * 53) + 36, 14).trim());
      
           }
 	}
@@ -2027,74 +2029,76 @@ private static Map<Integer, String> sortByValue(HashMap<Integer, String> map) {
 
 /*
 
-
-9181
-9854
-9855
-9182
-9183
-9857
-9184
-9185
-9192
-9193
-9194
-9159
-9160
-9852
-9161
-9162
-9163
-9164
-9165
-9166
-9167
-9168
-9169
-9170
-9171
-9172
-9173
-9175
-9176
-9177
-9178
-9179
-9180
-9186
-9187
-9188
-9189
-9190
-9191
-9860
-9861
-9862
-9863
-9864
-9865
-9866
-9867
-9868
-9869
-9870
-9871
-9872
-9873
-9874
-9875
-9876
-9877
-9878
-9879
-9880
-9881
-9882
-9883
-9884
-9885
-9886
-9887
-9888
-9889
-9047*/
+ map.put(9181,"");
+ map.put(9854,"");
+ map.put(9855,"");
+ map.put(9182,"");
+ map.put(9183,"");
+ map.put(9857,"");
+ map.put(9184,"");
+ map.put(9185,"");
+ map.put(9192,"");
+ map.put(9193,"");
+ map.put(9194,"");
+ map.put(9159,"");
+ map.put(9160,"");
+ map.put(9852,"");
+ map.put(9161,"");
+ map.put(9162,"");
+ map.put(9163,"");
+ map.put(9164,"");
+ map.put(9165,"");
+ map.put(9166,"");
+ map.put(9167,"");
+ map.put(9168,"");
+ map.put(9169,"");
+ map.put(9170,"");
+ map.put(9171,"");
+ map.put(9172,"");
+ map.put(9173,"");
+ map.put(9175,"");
+ map.put(9176,"");
+ map.put(9177,"");
+ map.put(9178,"");
+ map.put(9179,"");
+ map.put(9180,"");
+ map.put(9186,"");
+ map.put(9187,"");
+ map.put(9188,"");
+ map.put(9189,"");
+ map.put(9190,"");
+ map.put(9191,"");
+ map.put(9860,"");
+ map.put(9861,"");
+ map.put(9862,"");
+ map.put(9863,"");
+ map.put(9864,"");
+ map.put(9865,"");
+ map.put(9866,"");
+ map.put(9867,"");
+ map.put(9868,"");
+ map.put(9869,"");
+ map.put(9870,"");
+ map.put(9871,"");
+ map.put(9872,"");
+ map.put(9873,"");
+ map.put(9874,"");
+ map.put(9875,"");
+ map.put(9876,"");
+ map.put(9877,"");
+ map.put(9878,"");
+ map.put(9879,"");
+ map.put(9880,"");
+ map.put(9881,"");
+ map.put(9882,"");
+ map.put(9883,"");
+ map.put(9884,"");
+ map.put(9885,"");
+ map.put(9886,"");
+ map.put(9887,"");
+ map.put(9888,"");
+ map.put(9889,"");
+ map.put(9047,"");
+ 
+ *
+ */

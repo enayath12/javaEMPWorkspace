@@ -1,10 +1,22 @@
 package testingEMP;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StockDetails {
+	public static final String USER = "root";
+	public static final String PASS = "root";
+	public static Connection connection = null;
+	public static Statement statement = null;
 
+	// JDBC driver name and database URL
+	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	public static final String DB_URL = "jdbc:mysql://localhost/tkddata";
+	
 	public static String getTableName(String stockNm) {
 		String result = "";
 		List<String> stockName = new ArrayList<String>();
@@ -636,7 +648,7 @@ public class StockDetails {
 		stockName.add("ASHAPURA_INTI_FA");
 		stockName.add("DIGJAM_LIMITED");
 		stockName.add("QUESS_CORP_LIMIT");
-		stockName.add("MAX_INDIA_LIMITE");
+		stockName.add("MAX_INDIA_LIMITE"); 
 		stockName.add("LLOYDS_STEELS_IN");
 		stockName.add("RELCAPAMC_RRSL");
 		stockName.add("L_T_INFOTECH_LIM");
@@ -1711,7 +1723,7 @@ public class StockDetails {
 			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("BANKBARODA")) {
 				result = "BANK_OF_BARODA";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BANKINDIA") || (stockNm.toLowerCase()).equalsIgnoreCase("bank_of_india_fu")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BANKINDIA") || (stockNm.toLowerCase()).equalsIgnoreCase("bank_of_india")) {
 				result = "BANK_OF_INDIA";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BHARTIARTL") || (stockNm.toLowerCase()).equalsIgnoreCase("bharti_airtel_li")) {
@@ -1723,7 +1735,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ULTRACEMCO") || (stockNm.toLowerCase()).equalsIgnoreCase("ULTRATECH_CEMENT")) {
 				result = "ULTRATECH_CEMCO";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("INDUSINDBK") || (stockNm.toLowerCase()).equalsIgnoreCase("indusind_bank_fu")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("INDUSINDBK") || (stockNm.toLowerCase()).equalsIgnoreCase("indusind_bank")) {
 				result = "INDUSIND_BANK";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ONGC")) {
@@ -1738,7 +1750,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("HINDPETRO")) {
 				result = "HIND_PETROLEUM";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BOSCHLTD")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BOSCHLTD")||(stockNm.toLowerCase()).equalsIgnoreCase("bosch_ltd")) {
 				result = "BOSCH_LIMITED";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("HINDZINC") || (stockNm.toLowerCase()).equalsIgnoreCase("HINDUSTAN_ZINC_L")) {
@@ -1851,7 +1863,8 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IDBI")) {
 				result = "IDBI_MF_IDBI_G";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IDFC")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IDFC")||(stockNm.toLowerCase()).equalsIgnoreCase("idfc_bank")
+				||(stockNm.toLowerCase()).equalsIgnoreCase("idfcbank")) {
 				result = "IDFC_BANK_LIMITE";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("HEXAWARE")||(stockNm.toLowerCase()).equalsIgnoreCase("HEXAWARE_LTD")
@@ -1867,7 +1880,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ZEELEARN")) {
 				result = "ZEE_LEARN_LIMITE";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("TATAMOTORS") || (stockNm.toLowerCase()).equalsIgnoreCase("TATAMOTORS")
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("TATAMOTORS")
 					|| (stockNm.toLowerCase()).equalsIgnoreCase("tata_motors_ltd")) {
 				result = "TATA_MOTORS";
 				matchFound = true;
@@ -1904,17 +1917,8 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IOB")) {
 				result = "INDIAN_OVERSEAS";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IOB")) {
-				result = "INDIAN_OVERSEAS";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("IOC")) {
-				result = "INDIAN_OIL_CORP";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("JISLJALEQS")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("JISLJALEQS")) {
 				result = "JAIN_IRRIGATION";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("JPASSOCIAT")) {
-				result = "JAIPRAKASH_ASSOC";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("JPASSOCIAT")) {
 				result = "JAIPRAKASH_ASSOC";
@@ -1949,7 +1953,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ITC")) {
 				result = "ITC_LTD";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("MARUTI_SUZUKI_IN")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("MARUTI_SUZUKI_IN")||(stockNm.toLowerCase()).equalsIgnoreCase("MARUTI_SUZUKI")) {
 				result = "MARUTI_UDYOG";
 				matchFound = true;
 			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("JYOTHYLAB")) {
@@ -1964,13 +1968,13 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("EROSMEDIA")) {
 				result = "EROS_INTL_MEDIA";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("dlf_ltd") || (stockNm.toLowerCase()).equalsIgnoreCase("DLF_LTD_F1")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("dlf_ltd")) {
 				result = "DLF";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("dish_tv_india_lt")) {
 				result = "DISH_TV_I";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ata_india") || (stockNm.toLowerCase()).equalsIgnoreCase("BATA_INDIA_F1") || (stockNm.toLowerCase()).equalsIgnoreCase("BATA_INDIA")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("ata_india") || (stockNm.toLowerCase()).equalsIgnoreCase("BATA_INDIA") ) {
 				result = "BATA_INDIA";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("mercator_lines_l")) {
@@ -1979,10 +1983,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("unitech_ltd")) {
 				result = "UNITECH";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("unitech_ltd")) {
-				result = "UNITECH";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("WELCORP")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("WELCORP")) {
 				result = "WELSPUN_CORP_LTD";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("DELTACORP")) {
@@ -2006,10 +2007,7 @@ public class StockDetails {
 			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("DABUR")) {
 				result = "DABUR";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("DABUR")) {
-				result = "DABUR";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BAJFINANCE")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("BAJFINANCE")||(stockNm.toLowerCase()).equalsIgnoreCase("bajaj_finsv")) {
 				result = "BAJAJ_FINSERV_LT";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BEL")) {
@@ -2106,20 +2104,18 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("PAGE_INDS")||(stockNm.toLowerCase()).equalsIgnoreCase("PAGEIND")|| (stockNm.toLowerCase()).equalsIgnoreCase("PAGE_INDIA")) {
 				result = "PAGE_INDS";
 				matchFound = true;
-			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("PIDILITE_INDS")||(stockNm.toLowerCase()).equalsIgnoreCase("PIDILITIND")) {
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("PIDILITE_INDS")||(stockNm.toLowerCase()).equalsIgnoreCase("PIDILITE_IND")||(stockNm.toLowerCase()).equalsIgnoreCase("PIDILITEIND")) {
 				result = "PIDILITE_INDS";
 				matchFound = true;
-			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("PIDILITE_INDS")||(stockNm.toLowerCase()).equalsIgnoreCase("PIDILITIND")) {
-				result = "PIDILITE_INDS";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("SKS_MICROFINANCE")||(stockNm.toLowerCase()).equalsIgnoreCase("SKSMICRO")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("SKS_MICROFINANCE")||(stockNm.toLowerCase()).equalsIgnoreCase("SKSMICRO")) {
 				result = "SKS_MICROFINANCE";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("STRIDES_ARCOLAB")||(stockNm.toLowerCase()).equalsIgnoreCase("Strides_Pharma_Science_Ltd")
 					||(stockNm.toLowerCase()).equalsIgnoreCase("STAR")) {
 				result = "STRIDES_ARCOLAB";
 				matchFound = true;
-			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("TATAELXSI")||(stockNm.toLowerCase()).equalsIgnoreCase("Tata_Elxsi_Limited")) {
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("TATAELXSI")||(stockNm.toLowerCase()).equalsIgnoreCase("Tata_Elxsi_Limited")
+					||(stockNm.toLowerCase()).equalsIgnoreCase("tata_elxsi")) {
 				result = "TATAELXSI";
 				matchFound = true;
 			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("JOHNSON_CONTROLS")||(stockNm.toLowerCase()).equalsIgnoreCase("JCHAC")||(stockNm.toLowerCase()).equalsIgnoreCase("HITACHIHOM")) {
@@ -2131,13 +2127,10 @@ public class StockDetails {
 			}   else if ((stockNm.toLowerCase()).equalsIgnoreCase("COAL_INDIA_LTD")||(stockNm.toLowerCase()).equalsIgnoreCase("COALINDIA")) {
 				result = "COAL_INDIA_LTD";
 				matchFound = true;
-			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("APOLLO_HOSPITALS")||(stockNm.toLowerCase()).equalsIgnoreCase("APOLLOHOSP")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("APOLLO_HOSPITALS")||(stockNm.toLowerCase()).equalsIgnoreCase("APOLLOHOSP")||(stockNm.toLowerCase()).equalsIgnoreCase("APOLLO_HOSP")) {
 				result = "APOLLO_HOSPITALS";
 				matchFound = true;
-			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("APOLLO_HOSPITALS")||(stockNm.toLowerCase()).equalsIgnoreCase("APOLLOHOSP")) {
-				result = "APOLLO_HOSPITALS";
-				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("GLENMARK_PHARM")||(stockNm.toLowerCase()).equalsIgnoreCase("GLENMARK")) {
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("GLENMARK_PHARM")||(stockNm.toLowerCase()).equalsIgnoreCase("GLENMARK")) {
 				result = "GLENMARK_PHARM";
 				matchFound = true;
 			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("JUSTDIAL")||(stockNm.toLowerCase()).equalsIgnoreCase("Just_Dial_Ltd")) {
@@ -2146,9 +2139,167 @@ public class StockDetails {
 			}   else if ((stockNm.toLowerCase()).equalsIgnoreCase("L_T_FINANCE_HOLD")||(stockNm.toLowerCase()).equalsIgnoreCase("L_TFH")||(stockNm.toLowerCase()).equalsIgnoreCase("L&TFH")) {
 				result = "L_T_FINANCE_HOLD";
 				matchFound = true;
-			}      
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("tornt_pharm")||(stockNm.toLowerCase()).equalsIgnoreCase("TORRENT_PHARMA")) {
+				result = "TORRENT_PHARMA";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("balkris_ind")||(stockNm.toLowerCase()).equalsIgnoreCase("balkrishnaind")||(stockNm.toLowerCase()).equalsIgnoreCase("BALKRISHNA_INDS")) {
+				result = "BALKRISHNA_INDS";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("SADBHAV")||(stockNm.toLowerCase()).equalsIgnoreCase("SADBHAV_ENGINEER")) {
+				result = "SADBHAV_ENGINEER";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("SBILIFE")||(stockNm.toLowerCase()).equalsIgnoreCase("sbi_life")) {
+				result = "SBI_LIFE";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("radicokhai")||(stockNm.toLowerCase()).equalsIgnoreCase("RADICO_KHAITAN")) {
+				result = "RADICO_KHAITAN";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("CADILA_HEALTHCAR")||(stockNm.toLowerCase()).equalsIgnoreCase("cadilahc")) {
+				result = "CADILA_HEALTHCAR";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("BHARTI_INFRATEL")||(stockNm.toLowerCase()).equalsIgnoreCase("infratel")) {
+				result = "BHARTI_INFRATEL";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("rbl_bank")) {
+				result = "RBL_BANK_LIMITED";
+				matchFound = true;
+			}   else if ((stockNm.toLowerCase()).equalsIgnoreCase("bharat_fin")) {
+				result = "Bharat_Financial";
+				matchFound = true;
+			}   else if ((stockNm.toLowerCase()).equalsIgnoreCase("dcb_bank")) {
+				result = "DEVELOPMENT_CRED";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("la_opala")) {
+				result = "LA_OPALA_RG";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("granules")) {
+				result = "GRANULES_PHARMA";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("UJJIVAN")) {
+				result = "UJJIVAN_FIN_SER";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("jk_tyre")) {
+				result = "JK_TYRE_INDS";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("webel_solar")) {
+				result = "WEBEL_SL_ENG_LT";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("FORTIS")) {
+				result = "FORTIS_HEALTHCAR";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("niit_tech")) {
+				result = "NIIT_TECHNOLOGIE";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("graphite")||(stockNm.toLowerCase()).equalsIgnoreCase("Graphite_India_Ltd")) {
+				result = "Graphite_India_Ltd";
+				matchFound = true;
+			}    else if ((stockNm.toLowerCase()).equalsIgnoreCase("8k_miles")||(stockNm.toLowerCase()).equalsIgnoreCase("8kmiles")) {
+				result = "8K_MILES_SOFT_SE";
+				matchFound = true;
+			}   else if ((stockNm.toLowerCase()).equalsIgnoreCase("muthoot_fin")) {
+				result = "MUTHOOT_FINANCE";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("PEL")) {
+				result = "PIRAMAL_HEALTHCA";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("IOC")) {
+				result = "INDIAN_OIL_CORP";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("indigo")) {
+				result = "INTERGLOBE_AVIAT";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("kajariacer")) {
+				result = "KAJARIA_CERAMICS";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("MGL")) {
+				result = "MAHANAGAR_GAS_LT";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("MCX")) {
+				result = "MULTI_COMMODITY";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("ramco_cem")) {
+				result = "THE_RAMCO_CEMENT";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("shree_cem")||(stockNm.toLowerCase()).equalsIgnoreCase("Shree_Cement_Limited")) {
+				result = "SHR_CEMENT";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("TORNTPOWER")||(stockNm.toLowerCase()).equalsIgnoreCase("tornt_power")) {
+				result = "TORRENT_POWER_LI";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("icici_pruli")||(stockNm.toLowerCase()).equalsIgnoreCase("icicipruli")) {
+				result = "ICICI_PRUDENTIAL";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("chola_fin")||(stockNm.toLowerCase()).equalsIgnoreCase("CHOLAMANDALAM")) {
+				result = "CHOLAMANDALAM_DB";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("cummins_ind")) {
+				result = "cummins_ind";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("godrej_cp")) {
+				result = "GODREJ_CONSUMER";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("CONCOR")||(stockNm.toLowerCase()).equalsIgnoreCase("Container_Corporation_of_India")) {
+				result = "CONCOR";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("equitas")||(stockNm.toLowerCase()).equalsIgnoreCase("Equitas_Holding")) {
+				result = "EQUITAS_HOLDINGS";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("Max_Financial_Services")||(stockNm.toLowerCase()).equalsIgnoreCase("mfsl")) {
+				result = "MAX_FINANCIAL_SE";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("nestle_ind")||(stockNm.toLowerCase()).equalsIgnoreCase("NESTLE_INDIA")) {
+				result = "NESTLE_INDIA_LIM";
+				matchFound = true;
+			}else if ((stockNm.toLowerCase()).equalsIgnoreCase("Birlasoft_Ltd")||(stockNm.toLowerCase()).equalsIgnoreCase("bsoft")) {
+				result = "Birlasoft_Ltd";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("dmart")||(stockNm.toLowerCase()).equalsIgnoreCase("d_mart")) {
+				result = "AVENUE_SUPERMART";
+				matchFound = true;
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("berge_paint")||(stockNm.toLowerCase()).equalsIgnoreCase("berger_paint")) {
+				result = "BERGER_PAINTS";
+				matchFound = true;
+			}  else if ((stockNm.toLowerCase()).equalsIgnoreCase("manappuram")) {
+				result = "MANAPPURAM_GEN_F";
+				matchFound = true;
+			}        
 		}
 		
 		return result;
 	}
-}
+	
+	public static int getTableMaxId(String tablenme) {
+
+		List<String> HashMap_stockDataOfaDay = new ArrayList<String>();
+		int primaryKey = 0;
+		try {
+			Class.forName(JDBC_DRIVER);
+			connection = DriverManager.getConnection(DB_URL, USER, PASS);
+			statement = connection.createStatement();
+			String insertQuery = "SELECT * FROM " + tablenme + " ORDER BY id DESC LIMIT 1";
+			ResultSet resultSet = statement.executeQuery(insertQuery);
+			// System.out.println(" insertQuery :" + insertQuery);
+			if (!resultSet.isAfterLast()) {
+				// System.out.println(" resultSet has No data");
+			}
+
+			resultSet.afterLast();
+			while (resultSet.previous()) {
+				primaryKey = resultSet.getInt("Id");
+			}
+
+		} catch (Exception e) {
+		//	System.out.println(tablenme+"       getTableMaxId   "+e.getMessage());
+		}
+		
+		if (primaryKey == 0) {
+			primaryKey = 1;
+		} else {
+			primaryKey++;
+		}
+		
+		return primaryKey;
+
+	}
+
+	}
