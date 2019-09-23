@@ -1,4 +1,4 @@
-package testingEMP;
+package com.tkd.SqlCreation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -1633,7 +1633,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("SUNTV") || (stockNm.toLowerCase()).equalsIgnoreCase("sun_tv_network_l")) {
 				result = "SUN_TV";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BANKNIFTY")||(stockNm.toLowerCase()).equalsIgnoreCase("Bank_Nifty")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("BANKNIFTY")||(stockNm.toLowerCase()).equalsIgnoreCase("Bank_Nifty")||(stockNm.toLowerCase()).equalsIgnoreCase("Bank_Nifty(2nd Month)") ) {
 				result = "CNX_BANK_INDEX";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("SRTRANSFIN")||(stockNm.toLowerCase()).equalsIgnoreCase("SHRIRAM_TRANSPOR")) {
@@ -1830,7 +1830,7 @@ public class StockDetails {
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("CANBK")) {
 				result = "CANARA_BANK";
 				matchFound = true;
-			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("CNXIT")) {
+			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("CNXIT")||(stockNm.toLowerCase()).equalsIgnoreCase("CNXIT(2nd Month)")) {
 				result = "CNX_IT_INDEX";
 				matchFound = true;
 			} else if ((stockNm.toLowerCase()).equalsIgnoreCase("LT")||(stockNm.toLowerCase()).equalsIgnoreCase("Larsen_Toubra")) {

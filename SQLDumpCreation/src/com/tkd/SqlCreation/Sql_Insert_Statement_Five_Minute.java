@@ -1,4 +1,4 @@
-package testingEMP;
+package com.tkd.SqlCreation;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -39,7 +39,7 @@ public class Sql_Insert_Statement_Five_Minute extends HttpServlet {
 
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\Temp_folder\\");
+		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA CSV semicolon\\");
 
 		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT Five Minute\\");
 		

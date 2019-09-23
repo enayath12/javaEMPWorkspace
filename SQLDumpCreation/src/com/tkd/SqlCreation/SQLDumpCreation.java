@@ -1,4 +1,4 @@
-package testingEMP;
+package com.tkd.SqlCreation;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,8 +24,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-@WebServlet("/TestingEMP")
-public class TestingEMP extends HttpServlet {
+@WebServlet("/SQLDumpCreation")
+public class SQLDumpCreation extends HttpServlet {
 	private final String UPLOAD_DIRECTORY = "D:/Strategy testing environment/Workspace/TKD/TEMP tkd folder";
 	
 	 public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -61,11 +61,11 @@ public class TestingEMP extends HttpServlet {
 		    
 		  File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\MASTER");
 		  File f123 = new File("D:\\Strategy testing environment\\TKD\\NSE\\NIFTY\\MASTER");
-          byte[] data = new byte[(int) f1.length()];
-          new FileInputStream(f1).read(data);
+          byte[] data = new byte[(int) f123.length()];
+          new FileInputStream(f123).read(data);
 
           for (int i = 0; i < ((data.length / 53) - 1); ++i){
-        	  System.out.println(new String(data));
+        	  System.out.println(" ---      "+new String(data));
               //System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
                //       + new String(data, ((i + 1) * 53) + 36, 14).trim());
      
@@ -353,7 +353,7 @@ public class TestingEMP extends HttpServlet {
             new FileInputStream(f1).read(data);
 
             for (int i = 0; i < ((data.length / 53) - 1); ++i){
-                System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
+                System.out.println("   --hhh   ----   "+new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
                         + new String(data, ((i + 1) * 53) + 36, 14).trim());
        
             }

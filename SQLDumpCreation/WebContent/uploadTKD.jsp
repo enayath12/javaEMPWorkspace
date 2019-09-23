@@ -1,7 +1,7 @@
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.io.File"%>
-<form action="${pageContext.request.contextPath}/TestingEMP" method="post" enctype="multipart/form-data">
-	<input type="submit" name="button1" value="TestingEMP" />
+<form action="${pageContext.request.contextPath}/SQLDumpCreation" method="post" enctype="multipart/form-data">
+	<input type="submit" name="button1" value="SQL Dump Creation" />
 </form>
 
 
