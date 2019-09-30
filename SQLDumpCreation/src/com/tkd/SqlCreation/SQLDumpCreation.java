@@ -6,8 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -59,7 +62,7 @@ public class SQLDumpCreation extends HttpServlet {
 		    }
 		    reader.close();*/
 		    
-		  File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\MASTER");
+		 /* File f1 = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD FIVE MIN DATA TKD\\intra\\MASTER");
 		  File f123 = new File("D:\\Strategy testing environment\\TKD\\NSE\\NIFTY\\MASTER");
           byte[] data = new byte[(int) f123.length()];
           new FileInputStream(f123).read(data);
@@ -69,8 +72,37 @@ public class SQLDumpCreation extends HttpServlet {
               //System.out.println(new String(data, ((i + 1) * 53) + 7, 16).trim() + ": "
                //       + new String(data, ((i + 1) * 53) + 36, 14).trim());
      
-          }
+          }*/
+		 
+		 String testDate="20190819";
+		 String testTime="";
+		 try {
+			 String formatedDate =getDateTime(testDate, testTime);
+			
+			System.out.println("  formatedDate   "+formatedDate);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	 
+	 
+ public static String getDateTime(String date_Integer, String time_Integer) throws Exception {
+		 
+		 if(time_Integer.isEmpty()){
+			 time_Integer="0000";
+		 }
+		 
+		String sDate1=date_Integer+" "+time_Integer;  
+		SimpleDateFormat originalFormat = new SimpleDateFormat("yyyyMMdd HHmm");
+		Date date = originalFormat.parse(sDate1);
+		 
+		SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String stockDate = newFormat.format(date);
+		 
+		return stockDate;
+		}
 	 
     public static void fiveminuteStockName(){
     	

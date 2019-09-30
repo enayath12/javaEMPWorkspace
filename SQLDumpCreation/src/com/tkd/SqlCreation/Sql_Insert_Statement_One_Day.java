@@ -93,7 +93,7 @@ public class Sql_Insert_Statement_One_Day extends HttpServlet {
             zis.close();
             fis.close();
         } catch (IOException e) {
-            e.printStackTrace();
+        	System.out.println(e.getMessage());	
         }
         
     }
