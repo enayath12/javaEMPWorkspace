@@ -96,18 +96,18 @@ public class controller extends HttpServlet {
 
 		
 		String insertQuery = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'tkddata'";
-		hashSet_StockName = sqlstatements_09_30.getAllStockNames(insertQuery, hashSet_StockName, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
-		System.out.println("hashSet_StockName size :" + hashSet_StockName.size());
+		//hashSet_StockName = sqlstatements_09_30.getAllStockNames(insertQuery, hashSet_StockName, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
+		//System.out.println("hashSet_StockName size :" + hashSet_StockName.size());
 
 		for (String tableName : hashSet_StockName) {
 			System.out.println("hashSet_StockName tableName :" + tableName);
 			
-			/*insertQuery = "select * from " + tableName + " where stockDate LIKE '%2017-10%'";
+			insertQuery = "delete from " + tableName + " where timeFrame LIKE '%5_min%'";
 			HashSet<String> hashSet_tableWithIssue = sqlstatements_09_30.getStocksHasDataIssue(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
 			for (String entryDate : hashSet_tableWithIssue) {
 				System.out.println(" entryDate :: " + entryDate);
 			}
-			int numberOfDays = 1;*/
+			int numberOfDays = 1;
 
 		}
 		

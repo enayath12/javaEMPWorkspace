@@ -32,11 +32,11 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+import com.tkd.SqlCreation.StockDetails;
 
 @WebServlet("/GenerateInsertStatement_One_Hour")
 public class GenerateInsertStatement_One_Hour extends HttpServlet {
 
-	
 	public static File sqlDumpFolder = new File("D:\\Strategy testing environment\\TKD Extracted Files\\SQL one Hour\\");
 	// Database credentials
 	public static final String USER = "root";
@@ -55,11 +55,11 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 	}
 
 	public static boolean readFileToString(File folder, String zipFileName, String fileName) throws IOException {
-		/*
-		 * System.out.println(" folder     ::  " + folder.toString()); System.out.println(" zipFileName     ::  " +
-		 * zipFileName); System.out.println(" fileName     ::  " + FilenameUtils.removeExtension(fileName));
-		 */
-
+		
+		/* System.out.println(" GenerateInsertStatement_One_Hour    folder     ::  " + folder.toString()); System.out.println(" zipFileName     ::  " +
+		 zipFileName); System.out.println(" fileName     ::  " + FilenameUtils.removeExtension(fileName));*/
+		 
+		try{
 		String stockName = FilenameUtils.removeExtension(fileName);
 		boolean tableExists = false;
 		int primaryKey = 1;
@@ -67,24 +67,21 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 		FilenameUtils.removeExtension(fileName).replace("-F1", "");
 		
 		String tableName  = StockDetails.getTableName(FilenameUtils.removeExtension(fileName).replace("-F1", "").replace("_F1", ""));
-		// System.out.println("   the table name for one hour data is empty      ::        "+tableName);
-		 if(tableName.isEmpty()||tableName==""||tableName==null){
-			 tableName=FilenameUtils.removeExtension(fileName).replace("-F1", "");
-		 }
-		
-		primaryKey=getTableMaxId(tableName);
+		//System.out.println("   the table name    ::        "+tableName);
 
-		if (primaryKey == 0){
-			primaryKey = 1;
-		}else{
-			primaryKey++;
-		}
 		
+		primaryKey=StockDetails.getTableMaxId(tableName);
+		System.out.println("   the primaryKey      ::        "+primaryKey);
 		int stockId=0;
-		if(!StockDetails.getStockName_Or_Id(0,tableName).isEmpty()){
+			
 			String stockId_String=StockDetails.getStockName_Or_Id(0,tableName);
+			System.out.println("   stockId_String    ::        "+stockId_String);
+			try{
 			stockId=Integer.parseInt(stockId_String);
-		}
+			}catch(Exception e){
+				System.out.println("   the getStockName_Or_Id stockId   "+e);
+			}
+		
 		
 		// System.out.println(primaryKey+" tableName     "+tableName+"                       stockName        "+stockName+System.lineSeparator()+System.lineSeparator());
 		 List<String> statements = new ArrayList<>();
@@ -99,7 +96,7 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 			// System.out.println("absoluteFilePath :: " + absoluteFilePath);
 			File file = new File(absoluteFilePath);
 			if (file.createNewFile()) {
-				// System.out.println(absoluteFilePath+" File Created stockName "+stockName+" tableName "+tableName);
+				//System.out.println(absoluteFilePath+" File Created stockName "+stockName+" tableName "+tableName);
 			} else {
 				tableExists = true;
 				// System.out.println(" already exists stockName "+stockName);
@@ -107,18 +104,16 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 
 			StringBuilder intoValues = new StringBuilder();
 			String allInOne = "";
-			// here we get all the files in zip
-			// Zip file name will be stored along with the data in each row for referenc
 
-			
-				// create table with txtFile Name
-			   //
+			if(!tableName.isEmpty()&&tableName!=null&&tableName!=""){
+				//System.out.println(" not empty  tableName.isEmpty() stockName  tableName   "+tableName);
 			if (!tableExists) {
 				headerText = "-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)" + System.lineSeparator() + "--" + System.lineSeparator() + "-- Host: localhost    Database: TKDDATA"
 						+ System.lineSeparator() + "-- ------------------------------------------------------" + System.lineSeparator() + "-- Server version	5.7.18-log  " + System.lineSeparator()
 						+ "--" + System.lineSeparator() + "-- Table structure for table `" + tableName + "`" + System.lineSeparator() + "--" + System.lineSeparator();
 			}
 			if (primaryKey == 1 && !tableExists) {
+			//	System.out.println(" primaryKey == 1 && !tableExist me ");
 				dropCreateTable = "CREATE TABLE `" + tableName + "` (" + System.lineSeparator() + " `Id` int(111) NOT NULL AUTO_INCREMENT," + System.lineSeparator() + " `TKDstockId` int(111) NOT NULL,"
 						+ System.lineSeparator() + " `stockName` varchar(255) NOT NULL," + System.lineSeparator() + "`TimeFrame`  varchar(255) NOT NULL," + System.lineSeparator()
 						+ "`stockDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP," + System.lineSeparator() + "`stockOpen` double DEFAULT NULL," + System.lineSeparator()
@@ -144,7 +139,7 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 			}
 			if (tableExists) {
 				allInOne = System.lineSeparator() + intoValues + System.lineSeparator() + System.lineSeparator() + " UNLOCK TABLES;";
-				// replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
+				StockDetails.replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
 			}
 
 			// System.out.println("statements :: " + statements.size());
@@ -157,7 +152,13 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 				statements.add(allInOne);
 			    Files.write(Paths.get(absoluteFilePath), statements);
 			}
-
+			}else{
+				System.out.println("  tableName               "+tableName+"                stockId              "+stockId+"                         stockName           "+stockName);
+			}
+			
+			}catch(Exception e){
+				System.out.println(" Exception  error :-:"+e);
+			}
 			return true;
 	}
 
@@ -171,7 +172,12 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 		intoValues.append("INSERT INTO `" + tableName + "` VALUES ");
 		boolean addsemicolon = false;
 		boolean onetime = true;
-
+		
+		for(Map.Entry<String, Integer> checktableName:stockDetailsMAP.entrySet()){
+			if(checktableName.getKey().trim().equalsIgnoreCase(tableName.trim())){
+				primaryKey=checktableName.getValue()+1;
+			}
+		}
 		try (BufferedReader br = new BufferedReader(new FileReader(destDirnew))) {
 
 			while ((line = br.readLine()) != null) {
@@ -238,7 +244,6 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 
 	}
 
-	
 	public static boolean isMultipleof10(int n) {
 		while (n > 0)
 			n = n - 10;
@@ -248,34 +253,7 @@ public class GenerateInsertStatement_One_Hour extends HttpServlet {
 
 		return false;
 	}
-	
 
-	public static int getTableMaxId(String tablenme) {
 
-		List<String> HashMap_stockDataOfaDay = new ArrayList<String>();
-		int Id = 0;
-		try {
-			Class.forName(JDBC_DRIVER);
-			connection = DriverManager.getConnection(DB_URL, USER, PASS);
-			statement = connection.createStatement();
-			String insertQuery = "SELECT * FROM " + tablenme + " ORDER BY id DESC LIMIT 1";
-			ResultSet resultSet = statement.executeQuery(insertQuery);
-			System.out.println(" insertQuery  :" + insertQuery);
-			if (!resultSet.isAfterLast()) {
-				System.out.println(" resultSet has No data ");
-			}
 
-			resultSet.afterLast();
-			while (resultSet.previous()) {
-				Id = resultSet.getInt("Id");
-			}
-
-		} catch (Exception e) {
-			
-		}
-		return Id;
-
-	}
-
-	
 }

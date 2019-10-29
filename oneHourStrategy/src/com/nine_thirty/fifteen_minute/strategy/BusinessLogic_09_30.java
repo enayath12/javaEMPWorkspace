@@ -20,7 +20,8 @@ public class BusinessLogic_09_30 {
 
 	public static HashMap<String, String> get09_30_15_minute(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 
-		String insertQuery = "select * from "+tableName+"  where stockDate between '2017/01/01' and '2017/10/30' and TIME(stockDate) between '09:00:00' AND '15:17:00'";
+		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2018-01-01 00:00:00' AND stockDate <= '2019-12-30 00:00:00' AND TimeFrame='5_min'";
+		System.out.println("   insertQuery   ::"+insertQuery);
 		HashMap<String, String> min_max_value = new HashMap<String, String>();
 		String stockName = "";
 		/* 2017-06-01 15:25:00 */
@@ -105,7 +106,7 @@ public class BusinessLogic_09_30 {
 						}
 					}
 				}
-
+                System.out.println("    test ");
 				max_Value_9_30 = Collections.max(decMax_bwn_9_30);
 				min_Value_9_30 = Collections.max(decMin_bwn_9_30);
 
@@ -245,6 +246,7 @@ public class BusinessLogic_09_30 {
 		System.out.println("business login getByTime_10_15_TO_3_1");
 		HashMap<String, String> min_max_value = new HashMap<String, String>();
 		String insertQuery = "select * from  " + tableName + "  where stockDate like  '%2017/01/01%' and '2017/01/03'  and TIME(stockDate) between '10:15:00' AND '15:17:00'";
+		
 		min_max_value = getStockByTime(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
 
 		return min_max_value;

@@ -29,7 +29,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
+import com.tkd.SqlCreation.StockDetails;
 @WebServlet("/GenerateInsertStatement")
 public class GenerateInsertStatement_One_Day extends HttpServlet {
 
@@ -51,7 +51,7 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 
 	public static boolean readFileToString(File folder, String zipFileName, String fileName) throws IOException {
 
-
+try{
 		int stockId = Integer.parseInt(FilenameUtils.removeExtension(fileName));
 		boolean tableExists = false;
 		String stockName = StockDetails.getStockName_Or_Id(stockId, "");
@@ -64,11 +64,15 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 			sqlDumpFolder.mkdirs();
 		}
 		
-		
 		String tableName = StockDetails.getTableName(stockName.replace("-F1", "").replace("_F1", ""));
+		if(!stockName.isEmpty()&&(tableName.isEmpty()||tableName==null)){
+			tableName= stockName;
+		}else if((tableName.isEmpty()||tableName==null)&&stockName.isEmpty()){
+			System.out.println("tableName for day data  is empty for the stock ID  :: " + stockId+"   stockName     "+stockName);	
+			tableName= String.valueOf(stockId);
+		}
 		
 		int primaryKey = 1;		
-		primaryKey = StockDetails.getTableMaxId(tableName);
 		String absoluteFilePath = sqlDumpFolder + File.separator + tableName + ".sql";				
 		// System.out.println("absoluteFilePath :: " + absoluteFilePath);				int primaryKey = 1;
 		File file = new File(absoluteFilePath);				
@@ -83,13 +87,8 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 		
 		StringBuilder intoValues = new StringBuilder();
 		String allInOne = "";
-		// here we get all the files in zip
-		// Zip file name will be stored along with the data in each row for referenc
 
-		// create table with txtFile Name
-		//
-	//	System.out.println(" folder     ::  " + folder.toString());
-	//	System.out.println(" zipFileName     ::  " + zipFileName+"   fileName   "+fileName+"   tableExists  "+tableExists);
+		if(!tableName.isEmpty()&&tableName!=null&&tableName!=""){
 		if (!tableExists) {
 			headerText = "-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)" + System.lineSeparator() + "--" + System.lineSeparator() + "-- Host: localhost    Database: TKDDATA"
 					+ System.lineSeparator() + "-- ------------------------------------------------------" + System.lineSeparator() + "-- Server version	5.7.18-log  " + System.lineSeparator()
@@ -111,6 +110,7 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 			// System.out.println("file :: " +FilenameUtils.removeExtension(fileName));
 		}
 		if (folder.isFile() && (folder.getName().endsWith(".txt") || folder.getName().endsWith(".TXT") || folder.getName().endsWith(".csv") || folder.getName().endsWith(".CSV"))) {
+			// System.out.println("five Min data file :: " +FilenameUtils.removeExtension(fileName));
 			intoValues = EMP(folder.toString(), intoValues, stockName, stockId, tableName, primaryKey, tableExists);
 		}
 		if (!tableExists) {
@@ -121,7 +121,7 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 		}
 		if (tableExists) {
 			allInOne = System.lineSeparator() + intoValues + System.lineSeparator() + System.lineSeparator() + " UNLOCK TABLES;";
-			// replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
+			StockDetails.replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
 		}
 
 		// System.out.println("statements :: " + statements.size());
@@ -134,6 +134,14 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 			statements.add(allInOne);
 		    Files.write(Paths.get(absoluteFilePath), statements);
 		}
+		
+		}else{
+			
+			System.out.println("  tableName               "+tableName+"                stockId              "+stockId+"                         stockName           "+stockName);
+		}
+		}catch(Exception e){
+			//System.out.println("    error :"+e.getMessage()  );
+		}
 
 		return true;
 	}
@@ -143,9 +151,15 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 		String line = "";
 		String cvsSplitBy = ";";
 		String TimeFrame = "1_DAY";
-		intoValues.append("INSERT INTO `" + stockName + "` VALUES ");
+		intoValues.append("INSERT INTO `" + tableName + "` VALUES ");
 		boolean addsemicolon = false;
 		boolean onetime = true;
+		
+		for(Map.Entry<String, Integer> checktableName:stockDetailsMAP.entrySet()){
+			if(checktableName.getKey().trim().equalsIgnoreCase(tableName.trim())){
+				primaryKey=checktableName.getValue()+1;
+			}
+		} 
 		try (BufferedReader br = new BufferedReader(new FileReader(destDirnew))) {
 
 			while ((line = br.readLine()) != null) {
@@ -182,10 +196,10 @@ public class GenerateInsertStatement_One_Day extends HttpServlet {
 					primaryKey++;
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
-			System.out.println(e.getMessage());		
+			       //System.out.println(e.getMessage());		
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println(e.getMessage());	
+					//System.out.println(e.getMessage());	
 				}
 			}
 			intoValues.append(";");

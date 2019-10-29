@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -34,6 +35,7 @@ import java.util.List;
  * 
  * Created by Alvin Alexander, http://alvinalexander.com
  */
+
 public class sqlstatements_09_30 {
 	// Create Table For all the StockNames
 	public static HashSet<String> getAllStockNames(String insertQuery, HashSet<String> hashSet_StockName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection,
@@ -41,9 +43,8 @@ public class sqlstatements_09_30 {
 
 		try {
 			Class.forName(JDBC_DRIVER);
-
 			// the mysql insert statement
-System.out.println(" insertQuery  "+insertQuery);
+            System.out.println(" insertQuery  "+insertQuery);
 			ResultSet rs = statement.executeQuery(insertQuery);
 
 			while (rs.next()) {
@@ -62,6 +63,7 @@ System.out.println(" insertQuery  "+insertQuery);
 	// Create Table For all the StockNames
 	public static HashSet<String> getStocksHasDataIssue(String insertQuery, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 		java.sql.Timestamp timestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+		
 		HashSet<String> hashSetName = new HashSet<String>();
 		// System.out.println(" stockName :"+stockName);
 		try {
@@ -90,14 +92,17 @@ System.out.println(" insertQuery  "+insertQuery);
 	}
 
 	// Create Table For all the StockNames
-	public static HashMap<String, String> individualstockdata(String insertQuery, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
+	public static HashMap<String, String> individualstockdata(String insertQuery, String JDBC_DRIVER, String DB_URL, String USER, String PASS,
+			Connection connection, Statement statement) {
 
 		java.sql.Timestamp timestamp_before = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
 		java.sql.Timestamp timestamp_now = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
 		HashSet<String> HashSet_stockDataOfaDay = new HashSet<String>();
 		HashMap<String, String> HashMap_stockDataOfaDay = new HashMap<String, String>();
 		int i = 0;
+		
 		// System.out.println(" insertQuery :"+insertQuery);
+		
 		try {
 			Class.forName(JDBC_DRIVER);
 
@@ -105,14 +110,9 @@ System.out.println(" insertQuery  "+insertQuery);
 			ResultSet resultSet = statement.executeQuery(insertQuery);
 			StringBuilder stringBuilder_min_entry = new StringBuilder();
 			StringBuilder stringBuilder_day_entry = new StringBuilder();
+			
 
-			if (!resultSet.isAfterLast()) {
-				System.out.println(" resultSet has No data ");
-				return HashMap_stockDataOfaDay;
-			}
-
-			resultSet.afterLast();
-			while (resultSet.previous()) {
+			while (resultSet.next()) {
 				int Id = resultSet.getInt("Id");
 				String name = resultSet.getString("stockName");
 				Timestamp stockDate = resultSet.getTimestamp("stockDate");
@@ -122,7 +122,7 @@ System.out.println(" insertQuery  "+insertQuery);
 				Double stockClose = resultSet.getDouble("stockClose");
 				Double stockVolume = resultSet.getDouble("stockVolume");
 
-				// System.out.println("name :" + name);
+				//System.out.println( resultSet.getInt("Id")+"   name :   " + name);
 
 				stringBuilder_min_entry.append("Id").append('=').append(Id).append(',');
 				stringBuilder_min_entry.append("Id").append('=').append(Id).append(',');
@@ -136,7 +136,9 @@ System.out.println(" insertQuery  "+insertQuery);
 
 				// 12 //13
 				HashSet_stockDataOfaDay.add(stringBuilder_min_entry.toString());
-				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append(",1_min_entry,");
+				//System.out.println(" HashSet_stockDataOfaDay size :"+HashSet_stockDataOfaDay.size());
+				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append(",5_min_entry,");
+				//System.out.println(" stringBuilder_day_entry size :"+stringBuilder_day_entry.toString());
 				stringBuilder_min_entry = new StringBuilder();
 				if (i == 0) {
 					timestamp_before = stockDate;
@@ -146,7 +148,7 @@ System.out.println(" insertQuery  "+insertQuery);
 				timestamp_before = stockDate;
 
 				if (differenceDays >= 1) {
-					// System.out.println("timestamp_now :"+timestamp_now+" differenceDays :"+differenceDays);
+					System.out.println("timestamp_now :"+timestamp_now+" differenceDays :"+differenceDays);
 					HashMap_stockDataOfaDay.put(timestamp_now.toString(), stringBuilder_day_entry.toString());
 					stringBuilder_day_entry = new StringBuilder();
 				}
@@ -162,12 +164,14 @@ System.out.println(" insertQuery  "+insertQuery);
 			System.err.println(" individualstockdata Got an exception!");
 			e.printStackTrace();
 		}
-		// System.out.println(" allStockNames size :"+allStockNames.size());
+		 System.out.println(" allStockNames size :"+HashMap_stockDataOfaDay.size());
 		return HashMap_stockDataOfaDay;
 
 	}
 
 	public static long getDifferenceDays(Timestamp timeStamp1, Timestamp timeStamp2) {
+		
+		System.out.println("   timeStamp1    ::"+timeStamp1+"    timeStamp2     "+timeStamp2);
 		long differenceDays = 0;
 		try {
 			Date date1 = new Date(timeStamp1.getTime());
@@ -186,10 +190,11 @@ System.out.println(" insertQuery  "+insertQuery);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*
-		 * if(differenceDays>=1){ System.out.println(" getDifference  DaystimeStamp1 "+timeStamp1+"   timeStamp2 :"
-		 * +timeStamp2+" differenceDays :"+differenceDays); }
-		 */
+		
+		  if(differenceDays>=1){ 
+			  System.out.println(" getDifference  DaystimeStamp1 "+timeStamp1+"   timeStamp2 :"+timeStamp2+" differenceDays :"+differenceDays); 
+		  }
+		 
 
 		return differenceDays;
 	}

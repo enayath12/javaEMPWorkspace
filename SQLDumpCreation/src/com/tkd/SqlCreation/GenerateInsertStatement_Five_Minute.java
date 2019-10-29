@@ -1,6 +1,7 @@
 package com.tkd.SqlCreation;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -23,6 +24,8 @@ import javax.servlet.http.HttpServlet;
 import org.apache.commons.io.FilenameUtils;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+import com.tkd.SqlCreation.StockDetails;
+
 
 @WebServlet("/GenerateInsertStatement_Five_Minute")
 public class GenerateInsertStatement_Five_Minute extends HttpServlet {
@@ -41,13 +44,14 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 
 	public static boolean readFileToString(File folder, String zipFileName, String fileName) throws IOException {
 
+		try{
 		fileName = FilenameUtils.removeExtension(fileName);
 		int stockId = Integer.parseInt(fileName);
 		boolean tableExists = false;
 		String stockName = StockDetails.getStockName_Or_Id(stockId, "");
 		String tableName = StockDetails.getTableName(stockName.replace("-F1", "").replace("_F1", ""));
 		
-		// System.out.println(" stockName "+stockName+" tableName "+tableName+" TKDstockId "+TKDstockId);
+		//System.out.println(" Five Min stockName "+stockName+" tableName "+tableName+" stockId "+stockId);
 
 		int primaryKey = 1;
 		primaryKey = StockDetails.getTableMaxId(tableName);
@@ -74,15 +78,8 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 
 		StringBuilder intoValues = new StringBuilder();
 		String allInOne = "";
-		// here we get all the files in zip
-
-		// Zip file name will be stored along with the data in each row for referenc
-
-		// System.out.println(" stockName :: " +stockName +" tableName "+tableName+" TKDstockId "+TKDstockId+"
-		// primaryKey "+primaryKey);
-
-		// create table with txtFile Name
-		//
+		
+		if(!tableName.isEmpty()||tableName!=null||tableName!=""){
 		if (!tableExists) {
 			headerText = "-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)" + System.lineSeparator() + "--" + System.lineSeparator() + "-- Host: localhost    Database: TKDDATA"
 					+ System.lineSeparator() + "-- ------------------------------------------------------" + System.lineSeparator() + "-- Server version	5.7.18-log  " + System.lineSeparator()
@@ -100,10 +97,10 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 			dumpingData = "--" + System.lineSeparator() + " -- Dumping data for table `" + tableName + "`" + System.lineSeparator() + "--" + System.lineSeparator();
 
 			lockTable = "LOCK TABLES `" + tableName + "` WRITE;" + System.lineSeparator();
-
 			// System.out.println("file :: " +FilenameUtils.removeExtension(fileName));
 		}
 		if (folder.isFile() && (folder.getName().endsWith(".txt") || folder.getName().endsWith(".TXT") || folder.getName().endsWith(".csv") || folder.getName().endsWith(".CSV"))) {
+			// System.out.println("file :: " +FilenameUtils.removeExtension(fileName));
 			intoValues = EMP(folder.toString(), intoValues, stockName, stockId, tableName, primaryKey, tableExists);
 		}
 		if (!tableExists) {
@@ -114,7 +111,7 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 		}
 		if (tableExists) {
 			allInOne = System.lineSeparator() + intoValues + System.lineSeparator() + System.lineSeparator() + " UNLOCK TABLES;";
-			// replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
+		   StockDetails.replaceSelected(" UNLOCK TABLES;", allInOne,absoluteFilePath);
 		}
 
 		// System.out.println("statements :: " + statements.size());
@@ -127,46 +124,28 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 			statements.add(allInOne);
 			Files.write(Paths.get(absoluteFilePath), statements);
 		}
-
+		}else{
+			System.out.println("  tableName               "+tableName+"                stockId              "+stockId+"                         stockName           "+stockName);
+		}
+		
+		}catch(Exception e){
+			System.out.println("   error :"+e.getMessage());
+		}
 		return true;
 	}
 
-	public static void replaceSelected(String oldChar, String newChar, String absoluteFilePath) {
-		try {
-			// input the file content to the StringBuffer "input"
-			BufferedReader file = new BufferedReader(new FileReader(absoluteFilePath));
-			StringBuffer inputBuffer = new StringBuffer();
-			String line;
-
-			while ((line = file.readLine()) != null) {
-				inputBuffer.append(line);
-				inputBuffer.append('\n');
-			}
-			file.close();
-			String inputStr = inputBuffer.toString();
-
-			// System.out.println(inputStr); // display the original file for debugging
-
-			// logic to replace lines in the string (could use regex here to be generic)
-			inputStr = inputStr.replace(oldChar, newChar);
-
-			// display the new file for debugging
-			// System.out.println("----------------------------------\n" + inputStr);
-
-			// write the new string with the replaced line OVER the same file
-			FileOutputStream fileOut = new FileOutputStream(absoluteFilePath);
-			fileOut.write(inputStr.getBytes());
-			fileOut.close();
-
-		} catch (Exception e) {
-			System.out.println("Problem reading file."+e.getMessage());
-		}
-	}
+	
 
 	public static StringBuilder EMP(String destDirnew, StringBuilder intoValues, String stockName, int stockId, String tableName, int primaryKey, boolean tableExists) throws IOException {
 
-		// System.out.println("destDirnew :: " + destDirnew);
-
+	//	System.out.println("destDirnew :: " + destDirnew);
+		
+		for(Map.Entry<String, Integer> checktableName:stockDetailsMAP.entrySet()){
+			if(checktableName.getKey().trim().equalsIgnoreCase(tableName.trim())){
+				primaryKey=checktableName.getValue()+1;
+			}
+		}
+		
 		String line = "";
 		String cvsSplitBy = ";";
 		String TimeFrame = "5_MIN";
@@ -193,7 +172,7 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 					}
 
 					String stockDate = StockDetails.getDateTime(country[0], time);
-					//System.out.println(country[0] + "   stockDate :" + stockDate);
+				//	System.out.println(country[0] + "   stockDate :" + stockDate);
 					openString = openstockvalue.replace(",", ".").trim();
 					String highString = country[2].replace(",", ".").trim();
 					String lowString = country[3].replace(",", ".").trim();
