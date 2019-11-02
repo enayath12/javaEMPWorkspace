@@ -19,7 +19,7 @@ public class FiveMinStockData {
 		
 		HashMap<String, String> stockDataOfaDay = completeDataFiveMin(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
 		System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
-		return null;
+		return stockDataOfaDay;
 		// TODO Auto-generated method stub
 		
 	}

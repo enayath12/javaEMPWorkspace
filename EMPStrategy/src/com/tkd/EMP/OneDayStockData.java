@@ -11,21 +11,21 @@ import java.util.HashSet;
 public class OneDayStockData {
 
 
-	public static HashMap<String, String> getFiveMinStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
+	public static HashMap<String, String> getOneDayStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 				
 		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-01-01 00:00:00' AND stockDate <= '2019-01-30 00:00:00' AND TimeFrame='1_day'";
 		System.out.println("   insertQuery   ::"+insertQuery);
 		HashMap<String, String> min_max_value = new HashMap<String, String>();
 		String stockName = "";
 		
-		HashMap<String, String> stockDataOfaDay = completeDataFiveMin(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
+		HashMap<String, String> stockDataOfaDay = completeDataOneDay(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
 		System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
-		return null;
+		return stockDataOfaDay;
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static HashMap<String, String> completeDataFiveMin(String insertQuery, String JDBC_DRIVER, String dB_URL,
+	private static HashMap<String, String> completeDataOneDay(String insertQuery, String JDBC_DRIVER, String dB_URL,
 			String uSER, String pASS, Connection connection, Statement statement) {
 		
 		java.sql.Timestamp timestamp_before = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
@@ -70,7 +70,7 @@ public class OneDayStockData {
 				// 12 //13
 				HashSet_stockDataOfaDay.add(stringBuilder_min_entry.toString());
 				//System.out.println(" HashSet_stockDataOfaDay size :"+HashSet_stockDataOfaDay.size());
-				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append(",5_min_entry,");
+				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append(",1_day_entry,");
 				//System.out.println(" stringBuilder_day_entry size :"+stringBuilder_day_entry.toString());
 				stringBuilder_min_entry = new StringBuilder();
 				if (i == 0) {
