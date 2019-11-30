@@ -5,32 +5,32 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.HashSet;
 
 public class OneHourStockData {
 
-	public static HashMap<String, String> getOneHourStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
+	public static TreeMap<String, String> getOneHourStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 				
-		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-01-01 00:00:00' AND stockDate <= '2019-01-30 00:00:00' AND TimeFrame='1_Hour'";
+		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-05-27 00:00:00' AND stockDate <= '2019-06-07 00:00:00' AND TimeFrame='1_Hour'  AND stockName NOT LIKE '%_f1%' ORDER BY stockDate ASC";
 		System.out.println("   insertQuery   ::"+insertQuery);
-		HashMap<String, String> min_max_value = new HashMap<String, String>();
+		TreeMap<String, String> min_max_value = new TreeMap<String, String>();
 		String stockName = "";
 		
-		HashMap<String, String> stockDataOfaDay = completeDataOneHour(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
+		TreeMap<String, String> stockDataOfaDay = completeDataOneHour(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
 		System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
 		return stockDataOfaDay;
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static HashMap<String, String> completeDataOneHour(String insertQuery, String JDBC_DRIVER, String dB_URL,
+	private static TreeMap<String, String> completeDataOneHour(String insertQuery, String JDBC_DRIVER, String dB_URL,
 			String uSER, String pASS, Connection connection, Statement statement) {
 		
-		java.sql.Timestamp timestamp_before = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
-		java.sql.Timestamp timestamp_now = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
+		String timestamp_before = "";
+		String timestamp_now = "";
 		HashSet<String> HashSet_stockDataOfaDay = new HashSet<String>();
-		HashMap<String, String> HashMap_stockDataOfaDay = new HashMap<String, String>();
+		TreeMap<String, String> TreeMap_stockDataOfaDay = new TreeMap<String, String>();
 		int i = 0;
 		
 		// System.out.println(" insertQuery :"+insertQuery);
@@ -47,7 +47,7 @@ public class OneHourStockData {
 			while (resultSet.next()) {
 				int Id = resultSet.getInt("Id");
 				String name = resultSet.getString("stockName");
-				Timestamp stockDate = resultSet.getTimestamp("stockDate");
+				String stockDate = resultSet.getString("stockDate");
 				Double stockOpen = resultSet.getDouble("stockOpen");
 				Double stockHigh = resultSet.getDouble("stockHigh");
 				Double stockLow = resultSet.getDouble("stockLow");
@@ -69,7 +69,7 @@ public class OneHourStockData {
 				// 12 //13
 				HashSet_stockDataOfaDay.add(stringBuilder_min_entry.toString());
 				//System.out.println(" HashSet_stockDataOfaDay size :"+HashSet_stockDataOfaDay.size());
-				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append(",1_hour_entry,");
+				stringBuilder_day_entry.append(stringBuilder_min_entry.toString()).append("1_hour_entry,");
 				//System.out.println(" stringBuilder_day_entry size :"+stringBuilder_day_entry.toString());
 				stringBuilder_min_entry = new StringBuilder();
 				if (i == 0) {
@@ -79,14 +79,14 @@ public class OneHourStockData {
 				long differenceDays = DataController.getDifferenceDays(timestamp_before, timestamp_now);
 				timestamp_before = stockDate;
 
-				if (differenceDays >= 1) {
+				if (differenceDays >= 1||i == 0) {
 					//System.out.println("timestamp_now :"+timestamp_now+" differenceDays :"+differenceDays);
-					HashMap_stockDataOfaDay.put(timestamp_now.toString(), stringBuilder_day_entry.toString());
+					TreeMap_stockDataOfaDay.put(timestamp_now.toString(), stringBuilder_day_entry.toString());
 					stringBuilder_day_entry = new StringBuilder();
 				}
 				i++;
 			}
-			 System.out.println(" HashMap_stockDataOfaDay size :" + HashMap_stockDataOfaDay.size() + "  HashSet_stockDataOfaDay size :" + HashSet_stockDataOfaDay.size());
+			 System.out.println(" TreeMap_stockDataOfaDay size :" + TreeMap_stockDataOfaDay.size() + "  HashSet_stockDataOfaDay size :" + HashSet_stockDataOfaDay.size());
 
 			/*
 			 * long ddd = getDifferenceDays(date3, date4); System.out.println(" ddd :" + ddd);
@@ -95,8 +95,8 @@ public class OneHourStockData {
 			System.err.println(" individualstockdata Got an exception!");
 			e.printStackTrace();
 		}
-		 System.out.println(" allStockNames size :"+HashMap_stockDataOfaDay.size());
-		return HashMap_stockDataOfaDay;
+		 System.out.println(" allStockNames size :"+TreeMap_stockDataOfaDay.size());
+		return TreeMap_stockDataOfaDay;
 	}
 	
 
