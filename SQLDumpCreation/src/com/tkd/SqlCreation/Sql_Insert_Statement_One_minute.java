@@ -21,10 +21,10 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.sun.istack.internal.logging.Logger;
 
-@WebServlet("/Sql_Insert_Statement_One_Hour")
-public class Sql_Insert_Statement_One_Hour extends HttpServlet {
-	private final static Logger LOGGER = Logger.getLogger(Sql_Insert_Statement_One_Hour.class);
-	private static final Sql_Insert_Statement_One_Hour main = new Sql_Insert_Statement_One_Hour();
+@WebServlet("/Sql_Insert_Statement_One_minute")
+public class Sql_Insert_Statement_One_minute extends HttpServlet {
+	private final static Logger LOGGER = Logger.getLogger(Sql_Insert_Statement_One_minute.class);
+	private static final Sql_Insert_Statement_One_minute main = new Sql_Insert_Statement_One_minute();
 
 	private static final int BUFFER_SIZE = 4096;
 
@@ -39,11 +39,11 @@ public class Sql_Insert_Statement_One_Hour extends HttpServlet {
 
 	  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD HOUR-DATA CSV Semicolon\\");
+		File srcDirectory = new File("D:\\Strategy testing environment\\TKD ZIP CSV and TXT\\TKD ONE MINUTE DATA CSV semicolon\\");
 
-		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT ONE HOUR\\");
+		File destDirectory = new File("D:\\Strategy testing environment\\TKD Extracted Files\\TXT ONE MINUTE\\");
 		
-		System.out.println("   Sql_Insert_Statement_One_Hour  ");
+		System.out.println("   Sql_Insert_Statement_Five_minute  ");
 		
 		main.getAllFilesWithCertainExtension(srcDirectory, destDirectory, "zip");
 
@@ -82,7 +82,7 @@ public class Sql_Insert_Statement_One_Hour extends HttpServlet {
                 fos.write(buffer, 0, len);
                 }
                 
-                GenerateInsertStatement_One_Hour.readFileToString(newFile, zipFileName,fileName);
+                GenerateInsertStatement_One_Minute.readFileToString(newFile, zipFileName,fileName);
                 fos.close();
                 //close this ZipEntry
                 zis.closeEntry();
@@ -93,7 +93,7 @@ public class Sql_Insert_Statement_One_Hour extends HttpServlet {
             zis.close();
             fis.close();
         } catch (IOException e) {
-        	System.out.println(e.getMessage());	
+        	System.out.println(" unzip   "+e.getMessage());
         }
         
     }

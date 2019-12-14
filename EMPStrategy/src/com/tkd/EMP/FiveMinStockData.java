@@ -16,13 +16,13 @@ public class FiveMinStockData {
 
 	public static TreeMap<String, String> getFiveMinStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 				
-		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-05-27 00:00:00' AND stockDate <= '2019-06-07 00:00:00' AND TimeFrame='5_min' AND stockName NOT LIKE '%_f1%' ORDER BY stockDate ASC";
-		System.out.println("   insertQuery   ::"+insertQuery);
+		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-02-27 00:00:00' AND stockDate <= '2019-06-07 00:00:00' AND TimeFrame='5_min' AND stockName NOT LIKE '%_f1%' ORDER BY stockDate ASC";
+		//System.out.println("   insertQuery   ::"+insertQuery);
 		TreeMap<String, String> min_max_value = new TreeMap<String, String>();
 		String stockName = "";
 		
 		TreeMap<String, String> stockDataOfaDay = completeDataFiveMin(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
-		System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
+		//System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
 		return stockDataOfaDay;
 		// TODO Auto-generated method stub
 		
@@ -42,7 +42,7 @@ public class FiveMinStockData {
 		try {
 			Class.forName(JDBC_DRIVER);
 
-			System.out.println(" insertQuery  :"+insertQuery);
+			//System.out.println(" insertQuery  :"+insertQuery);
 			ResultSet resultSet = statement.executeQuery(insertQuery);
 			StringBuilder stringBuilder_min_entry = new StringBuilder();
 			StringBuilder stringBuilder_day_entry = new StringBuilder();
@@ -89,7 +89,7 @@ public class FiveMinStockData {
 					Date day4Date = inputFormat.parse(timestamp_before);
 					TreeMap_stockDataOfaDay.put(timestamp_before, stringBuilder_day_entry.toString());
 					stringBuilder_day_entry = new StringBuilder();
-					System.out.println(" in if stringBuilder_day_entry stockDate :  "+stockDate    +"   timestamp_before   "+timestamp_before +"    stringBuilder_day_entry.toString()     "+timestamp_before );
+					//System.out.println(" in if stringBuilder_day_entry stockDate :  "+stockDate    +"   timestamp_before   "+timestamp_before +"    stringBuilder_day_entry.toString()     "+timestamp_before );
 
 				}
 				
@@ -100,7 +100,7 @@ public class FiveMinStockData {
 				timestamp_before = stockDate;
 				i++;
 			}
-			 System.out.println(" TreeMap_stockDataOf5Min size :" + TreeMap_stockDataOfaDay.size() );
+			 //System.out.println(" TreeMap_stockDataOf5Min size :" + TreeMap_stockDataOfaDay.size() );
 
 			/*
 			 * long ddd = getDifferenceDays(date3, date4); System.out.println(" ddd :" + ddd);
@@ -114,7 +114,7 @@ public class FiveMinStockData {
 		
 		for (Map.Entry<String, String> fivmin : TreeMap_stockDataOfaDay.entrySet()) {
 		
-		 System.out.println(" TreeMap_stockDataOfaDay key   :"+fivmin.getKey()   );
+		// System.out.println(" TreeMap_stockDataOfaDay key   :"+fivmin.getKey()   );
 			 
 		}
 		

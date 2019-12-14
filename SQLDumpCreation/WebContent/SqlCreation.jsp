@@ -17,3 +17,8 @@
 <form action="${pageContext.request.contextPath}/Sql_Insert_Statement_Five_minute" method="post" enctype="multipart/form-data">
 	<input type="submit" name="Sql_Insert_Statement_Five_minute" value="Sql_Insert_Statement_Five_minute" />
 </form>
+
+
+<form action="${pageContext.request.contextPath}/Sql_Insert_Statement_One_minute" method="post" enctype="multipart/form-data">
+	<input type="submit" name="Sql_Insert_Statement_One_minute" value="Sql_Insert_Statement_One_minute" />
+</form>

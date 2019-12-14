@@ -12,13 +12,13 @@ public class OneHourStockData {
 
 	public static TreeMap<String, String> getOneHourStockdata(String tableName, String JDBC_DRIVER, String DB_URL, String USER, String PASS, Connection connection, Statement statement) {
 				
-		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-05-27 00:00:00' AND stockDate <= '2019-06-07 00:00:00' AND TimeFrame='1_Hour'  AND stockName NOT LIKE '%_f1%' ORDER BY stockDate ASC";
-		System.out.println("   insertQuery   ::"+insertQuery);
+		String insertQuery = "select * from "+tableName+" WHERE stockDate >= '2019-02-27 00:00:00' AND stockDate <= '2019-06-07 00:00:00' AND TimeFrame='1_Hour'  AND stockName NOT LIKE '%_f1%' ORDER BY stockDate ASC";
+		//System.out.println("   insertQuery   ::"+insertQuery);
 		TreeMap<String, String> min_max_value = new TreeMap<String, String>();
 		String stockName = "";
 		
 		TreeMap<String, String> stockDataOfaDay = completeDataOneHour(insertQuery, JDBC_DRIVER, DB_URL, USER, PASS, connection, statement);
-		System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
+		//System.out.println("  stockDataOfaDay : size :"+stockDataOfaDay.size());
 		return stockDataOfaDay;
 		// TODO Auto-generated method stub
 		
@@ -38,7 +38,7 @@ public class OneHourStockData {
 		try {
 			Class.forName(JDBC_DRIVER);
 
-			System.out.println(" insertQuery  :"+insertQuery);
+			//System.out.println(" insertQuery  :"+insertQuery);
 			ResultSet resultSet = statement.executeQuery(insertQuery);
 			StringBuilder stringBuilder_min_entry = new StringBuilder();
 			StringBuilder stringBuilder_day_entry = new StringBuilder();
@@ -86,7 +86,7 @@ public class OneHourStockData {
 				}
 				i++;
 			}
-			 System.out.println(" TreeMap_stockDataOfaDay size :" + TreeMap_stockDataOfaDay.size() + "  HashSet_stockDataOfaDay size :" + HashSet_stockDataOfaDay.size());
+			// System.out.println(" TreeMap_stockDataOfaDay size :" + TreeMap_stockDataOfaDay.size() + "  HashSet_stockDataOfaDay size :" + HashSet_stockDataOfaDay.size());
 
 			/*
 			 * long ddd = getDifferenceDays(date3, date4); System.out.println(" ddd :" + ddd);
@@ -95,7 +95,7 @@ public class OneHourStockData {
 			System.err.println(" individualstockdata Got an exception!");
 			e.printStackTrace();
 		}
-		 System.out.println(" allStockNames size :"+TreeMap_stockDataOfaDay.size());
+		// System.out.println(" allStockNames size :"+TreeMap_stockDataOfaDay.size());
 		return TreeMap_stockDataOfaDay;
 	}
 	

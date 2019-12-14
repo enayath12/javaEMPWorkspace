@@ -90,7 +90,7 @@ public class GenerateInsertStatement_Five_Minute extends HttpServlet {
 					+ System.lineSeparator() + " `stockName` varchar(255) NOT NULL," + System.lineSeparator() + "`TimeFrame`  varchar(255) NOT NULL," + System.lineSeparator()
 					+ "`stockDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP," + System.lineSeparator() + "`stockOpen` double DEFAULT NULL," + System.lineSeparator()
 					+ " `stockHigh` double DEFAULT NULL," + System.lineSeparator() + "`stockLow` double DEFAULT NULL," + System.lineSeparator() + "`stockClose` double DEFAULT NULL,"
-					+ System.lineSeparator() + "`stockVolume` double DEFAULT NULL," + System.lineSeparator() + " PRIMARY KEY (`Id`)" + System.lineSeparator() + ")  DEFAULT CHARSET=utf8;"
+					+ System.lineSeparator() + "`stockVolume` double DEFAULT NULL," + System.lineSeparator() + " PRIMARY KEY (`Id`) UNIQUE (`stockName`,`stockDate`,`TimeFrame`)" + System.lineSeparator() + ")  DEFAULT CHARSET=utf8;"
 					+ System.lineSeparator();
 		}
 		if (!tableExists) {
